@@ -103,9 +103,7 @@ export function AboutSection() {
                 <div className="absolute inset-0 bg-black/40" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
-                      {/* <span className="text-2xl font-bold text-primary-foreground">NI</span> */}
-                    </div>
+                    
                     {/* <p className="text-foreground font-medium">NI NI Digital Media</p>
                     <p className="text-muted-foreground text-sm">Where Innovation Flies High</p> */}
                   </div>
