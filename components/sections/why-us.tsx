@@ -38,7 +38,7 @@ export function WhyUsSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="why-us" className="py-24 lg:py-32 relative overflow-hidden">
+    <section id="why-us" className="pt-6 lg:pt-8 pb-24 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/5 to-background" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px]" />
@@ -67,7 +67,7 @@ export function WhyUsSection() {
             </p>
 
             {/* Stats */}
-            <div className="mt-10 grid grid-cols-3 gap-6">
+            {/* <div className="mt-10 grid grid-cols-3 gap-6">
               {[
                 { value: "10+", label: "Years Experience" },
                 { value: "200+", label: "Happy Clients" },
@@ -85,7 +85,7 @@ export function WhyUsSection() {
                   <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
                 </motion.div>
               ))}
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Right - Reasons */}

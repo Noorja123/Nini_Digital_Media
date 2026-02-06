@@ -70,14 +70,16 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-balance"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-balance"
           >
-            <span className="text-foreground">Where </span>
+            <span className="text-foreground">Fueling </span>
             <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-              Innovation
+              brands 
             </span>
+            <span className="text-foreground">with</span>
             <br />
-            <span className="text-foreground">Flies High</span>
+            <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+              Digital Wings</span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -100,10 +102,10 @@ export function HeroSection() {
           >
             <Button
               size="lg"
-              onClick={() => scrollToSection("#portfolio")}
+              onClick={() => scrollToSection("#services")}
               className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground group px-8"
             >
-              View Portfolio
+              View Services
               <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button

@@ -10,7 +10,6 @@ const navLinks = [
   { name: "About", href: "#about" },
   { name: "Services", href: "#services" },
   { name: "Why Us", href: "#why-us" },
-  { name: "Portfolio", href: "#portfolio" },
   { name: "Contact", href: "#contact" },
 ]
 
@@ -56,11 +55,12 @@ export function Navbar() {
               <div className="relative w-10 h-10 lg:w-12 lg:h-12">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg rotate-6" />
                 <div className="absolute inset-0.5 bg-background rounded-lg flex items-center justify-center">
-                  <span className="text-primary font-bold text-lg lg:text-xl">NI</span>
+                  <span className="text-primary font-bold text-lg lg:text-xl"></span> 
+                  <img src="/nini_logo.png" alt="Logo" className="w-12 h-12 lg:w-12 lg:h-12" />
                 </div>
               </div>
               <div className="hidden sm:block">
-                <span className="text-foreground font-bold text-lg">NI NI</span>
+                {/* <span className="text-foreground font-bold text-lg">NI NI</span> */}
                 <span className="text-muted-foreground text-sm block -mt-1">Digital Media</span>
               </div>
             </motion.div>

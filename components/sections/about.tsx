@@ -12,6 +12,7 @@ const cities = [
     description: "Our flagship creative hub where big ideas come to life. Advertising, branding, and full-service production.",
     icon: Palette,
     color: "from-primary to-accent",
+    image: "mumbai.png",
   },
   {
     name: "Kolkata",
@@ -19,6 +20,7 @@ const cities = [
     description: "Strategic PR and media relations. Building brand narratives and managing reputations across East India.",
     icon: Megaphone,
     color: "from-secondary to-primary",
+    image: "kolkata.png",
   },
   {
     name: "Hyderabad",
@@ -26,6 +28,7 @@ const cities = [
     description: "Digital-first campaigns and social media mastery. Engaging audiences across platforms that matter.",
     icon: Share2,
     color: "from-accent to-secondary",
+    image: "hyderabad.png",
   },
 ]
 
@@ -70,7 +73,7 @@ export function AboutSection() {
         >
           <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-muted/50 to-muted/30 backdrop-blur-sm border border-border p-8 lg:p-12">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-full" />
-            <div className="relative grid lg:grid-cols-2 gap-8 items-center">
+            <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
                   Your Vision, Our Expertise
@@ -92,13 +95,19 @@ export function AboutSection() {
                 </div>
               </div>
               <div className="relative aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-secondary/20 to-primary/20">
+                <img
+                  src="aboutus.png"
+                  alt="Background"
+                  className="absolute inset-0 w-full h-full object-cover opacity-50"
+                />
+                <div className="absolute inset-0 bg-black/40" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
-                      <span className="text-2xl font-bold text-primary-foreground">NI</span>
+                      {/* <span className="text-2xl font-bold text-primary-foreground">NI</span> */}
                     </div>
-                    <p className="text-foreground font-medium">NI NI Digital Media</p>
-                    <p className="text-muted-foreground text-sm">Where Innovation Flies High</p>
+                    {/* <p className="text-foreground font-medium">NI NI Digital Media</p>
+                    <p className="text-muted-foreground text-sm">Where Innovation Flies High</p> */}
                   </div>
                 </div>
               </div>
@@ -118,23 +127,30 @@ export function AboutSection() {
               className="group"
             >
               <div className="relative h-full rounded-2xl overflow-hidden bg-muted/30 backdrop-blur-sm border border-border p-6 hover:border-primary/30 transition-all duration-300">
+                {city.image && (
+                  <img
+                    src={`/${city.image}`}
+                    alt={city.name}
+                    className="absolute inset-0 w-full h-full object-cover opacity-70"
+                  />
+                )}
+                {/* Dark overlay for text readability */}
+                <div className="absolute inset-0 bg-black/60" />
                 {/* Glassmorphism effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 
                 {/* Icon */}
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${city.color} p-0.5 mb-6`}>
-                  <div className="w-full h-full rounded-[10px] bg-background flex items-center justify-center">
-                    <city.icon className="w-6 h-6 text-primary" />
-                  </div>
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${city.color} flex items-center justify-center mb-6 shadow-lg`}>
+                  <city.icon className="w-7 h-7 text-white drop-shadow-lg" />
                 </div>
 
                 {/* Content */}
-                <div className="flex items-center gap-2 mb-2">
+                <div className="relative z-10 flex items-center gap-2 mb-2">
                   <MapPin className="w-4 h-4 text-accent" />
-                  <span className="text-lg font-bold text-foreground">{city.name}</span>
+                  <span className="text-lg font-bold text-white">{city.name}</span>
                 </div>
-                <p className="text-primary font-medium mb-3">{city.specialty}</p>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="relative z-10 text-accent font-medium mb-3">{city.specialty}</p>
+                <p className="relative z-10 text-white/90 text-sm leading-relaxed">
                   {city.description}
                 </p>
 

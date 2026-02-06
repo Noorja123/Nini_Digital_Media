@@ -20,80 +20,114 @@ import {
 
 const services = [
   {
-    title: "Advertising & Branding",
+    title: "Film Marketing-ads & Advertising",
     description: "Strategic campaigns that capture attention and drive results across all channels.",
     icon: Megaphone,
     hasVideo: false,
+    image: "film-marketing.jpg"
   },
   {
-    title: "Public Relations",
+    title: "PR & Social Media",
     description: "Build credibility and manage your reputation with expert PR strategies.",
     icon: FileText,
     hasVideo: false,
+    image: "pr-endorsement.jpg"
   },
   {
-    title: "Digital Campaigns",
+    title: "Digital Marketing Campaigns",
     description: "Data-driven digital marketing that reaches your audience where they are.",
     icon: Tv,
     hasVideo: false,
+    image: "digital-campaigns.jpg"
   },
   {
-    title: "Videography",
+    title: "Videography & Drone Shoots",
     description: "Professional video production that tells your story beautifully.",
     icon: Video,
-    hasVideo: true,
-    videoSrc: "/videography-demo.mp4",
+    hasVideo: false,
+     videoSrc: "/videography-demo.mp4",
+     image: "videography.jpg"
   },
   {
-    title: "Motion Graphics",
+    title: "Motion Graphics & Product Photoshoot",
     description: "Eye-catching animations that bring your brand to life.",
     icon: Sparkles,
-    hasVideo: true,
+    hasVideo: false,
     videoSrc: "/motion-demo.mp4",
+    image: "motion-graphics.jpg",
   },
+    
   {
-    title: "Events",
+    title: "Events & Staffing",
     description: "End-to-end event management for memorable brand experiences.",
     icon: Calendar,
     hasVideo: false,
-  },
-  {
-    title: "Film Marketing",
-    description: "Comprehensive marketing strategies for films and entertainment.",
-    icon: Film,
-    hasVideo: true,
-    videoSrc: "/film-marketing-demo.mp4",
-  },
-  {
-    title: "Social Media",
-    description: "Engaging social strategies that build communities and drive engagement.",
-    icon: Share2,
-    hasVideo: false,
-  },
-  {
-    title: "Branding Strategy",
-    description: "Define your brand identity with strategic positioning and design.",
-    icon: Target,
-    hasVideo: false,
+    image: "event .png",
   },
   {
     title: "Content Creation",
     description: "Compelling content that resonates with your target audience.",
     icon: FileText,
     hasVideo: false,
+    image: "content-creation.jpg"
   },
   {
-    title: "Endorsements",
+    title: "Branding Strategy",
+    description: "Define your brand identity with strategic positioning and design.",
+    icon: Target,
+    hasVideo: false,
+    image: "branding-design.jpg"
+  },
+  {
+    title: "Endorsements & Marketing",
     description: "Connect with the right influencers and celebrities for your brand.",
     icon: Star,
     hasVideo: false,
+    image: "marketing.png"
   },
-  {
-    title: "Music & Travel",
-    description: "Specialized marketing for music artists and travel tourism.",
-    icon: Music,
-    hasVideo: false,
-  },
+  // {
+  //   title: "Film Marketing",
+  //   description: "Comprehensive marketing strategies for films and entertainment.",
+  //   icon: Film,
+  //   hasVideo: true,
+  //   videoSrc: "/film-marketing-demo.mp4",
+  //   image: "film-demo.jpg"
+  // },
+  // {
+  //   title: "Social Media",
+  //   description: "Engaging social strategies that build communities and drive engagement.",
+  //   icon: Share2,
+  //   hasVideo: false,
+  //   image: "social-media.jpg"
+  // },
+  // {
+  //   title: "Branding Strategy",
+  //   description: "Define your brand identity with strategic positioning and design.",
+  //   icon: Target,
+  //   hasVideo: false,
+  //   image: "branding-strategy.jpg"
+  // },
+  // {
+  //   title: "Content Creation",
+  //   description: "Compelling content that resonates with your target audience.",
+  //   icon: FileText,
+  //   hasVideo: false,
+  //   image: "content-creation.jpg"
+  // },
+  // {
+  //   title: "Endorsements",
+  //   description: "Connect with the right influencers and celebrities for your brand.",
+  //   icon: Star,
+  //   hasVideo: false,
+  //   image: "endorsements.jpg"
+  // },
+  // {
+  //   title: "Music & Travel",
+  //   description: "Specialized marketing for music artists and travel tourism.",
+  //   icon: Music,
+  //   hasVideo: false,
+  //   image: "music-travel.jpg"
+  // },
 ]
 
 function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
@@ -115,7 +149,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
         {/* Video Background */}
         {service.hasVideo && (
           <div className="absolute inset-0 overflow-hidden">
-            <div className={`absolute inset-0 bg-background/80 z-10 transition-opacity duration-300 ${isHovered ? "opacity-60" : "opacity-90"}`} />
+            <div className={`absolute inset-0 bg-background/80 z-10 transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-0"}`} />
             <video
               autoPlay
               muted
@@ -128,21 +162,33 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
           </div>
         )}
 
+        {/* Image Background */}
+        {service.image && (
+          <div className="absolute inset-0 overflow-hidden">
+            <div className={`absolute inset-0 bg-background/80 z-10 transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-0"}`} />
+            <img
+              src={`/${service.image}`}
+              alt={service.title}
+              className="w-full h-full object-cover scale-110"
+            />
+          </div>
+        )}
+
         {/* Glassmorphism overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-20" />
 
         {/* Content */}
-        <div className="relative z-30 p-6">
+        <div className="relative z-30 p-6 bg-black/40 rounded-2xl h-full flex flex-col">
           {/* Icon */}
           <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 border border-primary/20 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
             <Icon className="w-7 h-7 text-primary" />
           </div>
 
           {/* Title & Description */}
-          <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+          <h3 className="text-lg font-bold text-white mb-2 group-hover:text-white transition-colors drop-shadow-lg">
             {service.title}
           </h3>
-          <p className="text-muted-foreground text-sm leading-relaxed">
+          <p className="text-white/80 text-sm leading-relaxed drop-shadow-lg">
             {service.description}
           </p>
 
@@ -197,33 +243,10 @@ export function ServicesSection() {
 
         {/* Services Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.slice(0, 6).map((service, index) => (
+          {services.slice(0, 9).map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />
           ))}
         </div>
-
-        {/* Additional Services Row */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.8 }}
-          className="mt-12"
-        >
-          <div className="flex flex-wrap justify-center gap-4">
-            {services.slice(6).map((service) => (
-              <motion.div
-                key={service.title}
-                whileHover={{ scale: 1.05 }}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-muted/30 border border-border hover:border-primary/30 transition-all cursor-pointer group"
-              >
-                <service.icon className="w-4 h-4 text-primary" />
-                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                  {service.title}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   )
