@@ -116,7 +116,7 @@ export function WhyUsSection() {
                   </div>
 
                   {/* Arrow */}
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  {/* <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                     <svg
                       className="w-4 h-4 text-primary"
                       fill="none"
@@ -130,7 +130,7 @@ export function WhyUsSection() {
                         d="M9 5l7 7-7 7"
                       />
                     </svg>
-                  </div>
+                  </div> */}
                 </div>
               </motion.div>
             ))}

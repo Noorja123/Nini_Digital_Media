@@ -96,9 +96,9 @@ export function AboutSection() {
               </div>
               <div className="relative aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-secondary/20 to-primary/20">
                 <img
-                  src="aboutus.png"
+                  src="image.png"
                   alt="Background"
-                  className="absolute inset-0 w-full h-full object-cover opacity-50"
+                  className="absolute inset-0 w-full h-full object-cover opacity-90"
                 />
                 <div className="absolute inset-0 bg-black/40" />
                 <div className="absolute inset-0 flex items-center justify-center">

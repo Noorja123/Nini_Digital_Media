@@ -1,7 +1,7 @@
+
 "use client"
 
 import React from "react"
-
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
@@ -14,14 +14,14 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "ninidigitalmedia@gmail.com",
-    href: "mailto:ninidigitalmedia@gmail.com",
+    value: "info@ninidigital.in",
+    href: "mailto:info@ninidigital.in",
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+91 9930204423",
-    href: "tel:+919930204423",
+    value: "+91 9167783361",
+    href: "tel:+919167783361",
   },
   {
     icon: MapPin,
@@ -46,13 +46,79 @@ export function ContactSection() {
     name: "",
     email: "",
     company: "",
+    phone: "",
     message: "",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formState)
+
+    if (!formState.name || !formState.email || !formState.message) {
+      alert("Please fill in all required fields")
+      return
+    }
+
+    setIsSubmitting(true)
+
+    const payload = {
+      name: formState.name,
+      email: formState.email,
+      phone: formState.phone || null,
+      company: formState.company || null,
+      message: formState.message,
+    }
+
+    // Try POSTing to server API
+    try {
+      const res = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        console.error("Server returned error:", data)
+        alert("There was an error sending your message. It has been saved locally.")
+      } else {
+        // Success from server
+        alert("Thank you! Your message has been sent.")
+      }
+    } catch (err) {
+      console.error("Network/server error:", err)
+      alert("Network error — your message was saved locally.")
+    }
+
+    // Save locally as fallback / for dashboard
+    try {
+      const existingInquiries = JSON.parse(localStorage.getItem("nini_inquiries") || "[]")
+      const localEntry = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }),
+        name: formState.name,
+        email: formState.email,
+        phone: formState.phone || null,
+        company: formState.company || null,
+        message: formState.message,
+        status: "unread",
+      }
+      localStorage.setItem("nini_inquiries", JSON.stringify([localEntry, ...existingInquiries]))
+    } catch (err) {
+      console.error("localStorage error:", err)
+    }
+
+    // Reset form
+    setFormState({
+      name: "",
+      email: "",
+      company: "",
+      phone: "",
+      message: "",
+    })
+
+    setIsSubmitting(false)
   }
 
   return (
@@ -118,14 +184,26 @@ export function ContactSection() {
                   </div>
                 </div>
                 
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Company (Optional)</label>
-                  <Input
-                    placeholder="Your company"
-                    value={formState.company}
-                    onChange={(e) => setFormState({ ...formState, company: e.target.value })}
-                    className="bg-background/50 border-border focus:border-primary text-foreground placeholder:text-muted-foreground"
-                  />
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="text-sm text-muted-foreground mb-2 block">Phone</label>
+                    <Input
+                      type="tel"
+                      placeholder="+91 00000 00000"
+                      value={formState.phone}
+                      onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                      className="bg-background/50 border-border focus:border-primary text-foreground placeholder:text-muted-foreground"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-muted-foreground mb-2 block">Company (Optional)</label>
+                    <Input
+                      placeholder="Your company"
+                      value={formState.company}
+                      onChange={(e) => setFormState({ ...formState, company: e.target.value })}
+                      className="bg-background/50 border-border focus:border-primary text-foreground placeholder:text-muted-foreground"
+                    />
+                  </div>
                 </div>
                 
                 <div>
@@ -142,8 +220,9 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground group"
+                  disabled={isSubmitting}
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                   <Send className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </form>
@@ -221,6 +300,7 @@ export function ContactSection() {
               }} />
             </motion.div>
 
+    
             {/* Social Links */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -249,3 +329,5 @@ export function ContactSection() {
     </section>
   )
 }
+
+

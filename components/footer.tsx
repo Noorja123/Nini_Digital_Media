@@ -13,9 +13,8 @@ const footerLinks = {
   ],
   company: [
     { name: "About Us", href: "#about" },
-    { name: "Our Team", href: "#about" },
-    { name: "Portfolio", href: "#portfolio" },
-    { name: "Careers", href: "#contact" },
+    { name: "Services", href: "#services" },
+    { name: "Why-us", href: "#why-us" },
     { name: "Contact", href: "#contact" },
   ],
   locations: [
@@ -142,10 +141,10 @@ export function Footer() {
               <div className="mt-6">
                 <p className="text-xs text-muted-foreground">Email us at</p>
                 <a
-                  href="mailto:ninidigitalmedia@gmail.com"
+                  href="mailto:info@ninidigital.in"
                   className="text-sm text-primary hover:underline"
                 >
-                  ninidigitalmedia@gmail.com
+                  info@ninidigital.in
                 </a>
               </div>
             </div>
