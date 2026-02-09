@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
 
 export const metadata: Metadata = {
-  title: 'NI NI Digital Media | Creative Digital Agency',
+  title: 'NI NI Digital Media',
   description: 'NI NI Digital Media - Where Innovation Flies High. Full-service creative digital agency offering Advertising, Branding, PR, Digital Campaigns, Videography, Motion Graphics, Events & More.',
   keywords: 'digital agency, advertising, branding, PR, social media, videography, motion graphics, film marketing, Mumbai, Kolkata, Hyderabad',
   // icons: {
