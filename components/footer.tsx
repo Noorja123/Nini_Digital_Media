@@ -25,7 +25,7 @@ const footerLinks = {
 }
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/nini_digital_media?igsh=MW1ybTJjaG1tNzdrNA%3D%3D&utm_source=qr", label: "Instagram" },
   { icon: Facebook, href: "#", label: "Facebook" },
   { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
@@ -58,7 +58,8 @@ export function Footer() {
                 <div className="relative w-10 h-10">
                   <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-lg rotate-6" />
                   <div className="absolute inset-0.5 bg-background rounded-lg flex items-center justify-center">
-                    <span className="text-primary font-bold">NI</span>
+                    <span className="text-primary font-bold"></span>
+                    <img src="/nini_logo.png" alt="Logo" className="w-12 h-12 lg:w-12 lg:h-12" />
                   </div>
                 </div>
                 <div>
@@ -68,7 +69,7 @@ export function Footer() {
               </motion.div>
               
               <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mb-6">
-                Where Innovation Flies High. Full-service creative digital agency 
+                Fueling brands with Advertising wings. Full-service creative digital agency 
                 transforming brands across India.
               </p>
 

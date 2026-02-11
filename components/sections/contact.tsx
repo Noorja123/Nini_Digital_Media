@@ -32,7 +32,7 @@ const contactInfo = [
 ]
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/nini_digital_media?igsh=MW1ybTJjaG1tNzdrNA%3D%3D&utm_source=qr", label: "Instagram" },
   { icon: Facebook, href: "#", label: "Facebook" },
   { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
