@@ -73,7 +73,7 @@ A modern, responsive digital media company website built with Next.js 16, React 
 
 ### Prerequisites
 
-- Node.js 18+ and pnpm (or npm/yarn)
+- Node.js 18+ and npm (or pnpm/yarn)
 
 ### Installation
 
@@ -85,22 +85,22 @@ cd Nini_Digital_Media
 
 2. Install dependencies:
 ```bash
-pnpm install
+npm install
 ```
 
 3. Start the development server:
 ```bash
-pnpm dev
+npm run dev
 ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
 ## Available Scripts
 
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm start` - Start production server
+- `npm run lint` - Run ESLint
 
 ## UI Components
 
@@ -146,8 +146,8 @@ Forms use React Hook Form with Zod for schema validation. See `components/sectio
 
 Build and start the production server:
 ```bash
-pnpm build
-pnpm start
+npm run build
+npm start
 ```
 
 ## Contributing
