@@ -48,6 +48,7 @@ const NiNiDashboard = () => {
   const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
   const [responseText, setResponseText] = useState("");
   const [isSendingResponse, setIsSendingResponse] = useState(false);
+  const [toastOpen, setToastOpen] = useState(false);
   const [settings, setSettings] = useState({
     name: "",
     email: "",
@@ -154,6 +155,7 @@ const NiNiDashboard = () => {
     setUserSession((prev) =>
       prev ? { ...prev, email: settings.email } : prev,
     );
+    setToastOpen(true);
   };
 
   // Calculate statistics
@@ -168,6 +170,7 @@ const NiNiDashboard = () => {
   }
 
   return (
+    <Toast.Provider swipeDirection="right">
     <div
       className="flex min-h-screen font-['Quicksand'] text-gray-800"
       style={{ backgroundColor: "#F7F5FA" }}
@@ -575,6 +578,21 @@ const NiNiDashboard = () => {
         </div>
       </main>
     </div>
+
+    <Toast.Root
+      open={toastOpen}
+      onOpenChange={setToastOpen}
+      duration={3000}
+      className="bg-green-600 text-white px-6 py-3 rounded-lg shadow-xl border border-green-500 pointer-events-auto"
+      data-radix-toast
+    >
+      <Toast.Title className="font-medium text-base">
+        ✓ Changes saved successfully!
+      </Toast.Title>
+    </Toast.Root>
+
+    <Toast.Viewport className="fixed bottom-5 right-5 flex flex-col gap-2 w-96 max-w-full outline-none z-[9999] pointer-events-none" />
+    </Toast.Provider>
   );
 };
 
