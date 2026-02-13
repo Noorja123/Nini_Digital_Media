@@ -51,6 +51,20 @@ export function ContactSection() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const regex = /^[a-zA-Z\s]*$/; // Allows letters and spaces only
+    if (regex.test(value)) {
+      setFormState({ ...formState, name: value });
+    }
+  };
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const regex = /^[0-9+\-\s()]*$/; // Allows numbers, +, -, spaces, and parentheses
+    if (regex.test(value)) {
+      setFormState({ ...formState, phone: value });
+    }
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -168,7 +182,7 @@ export function ContactSection() {
                     <Input
                       placeholder="Your name"
                       value={formState.name}
-                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                      onChange={handleNameChange}
                       className="bg-background/50 border-border focus:border-primary text-foreground placeholder:text-muted-foreground"
                     />
                   </div>
@@ -191,7 +205,7 @@ export function ContactSection() {
                       type="tel"
                       placeholder="+91 00000 00000"
                       value={formState.phone}
-                      onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                      onChange={handlePhoneChange}
                       className="bg-background/50 border-border focus:border-primary text-foreground placeholder:text-muted-foreground"
                     />
                   </div>
