@@ -6,9 +6,10 @@
 //     </section>
 //   );
 // }
-'use client'; // Fix: Mark as a Client Component to use useState/useEffect
+"use client"; // Fix: Mark as a Client Component to use useState/useEffect
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import * as Toast from "@radix-ui/react-toast";
 import {
   MessageSquare,
   Home,
@@ -19,9 +20,9 @@ import {
   CreditCard,
   LogOut,
   AlertCircle,
-} from 'lucide-react';
-import { LoginComponent } from './login'; 
-import { Sarala } from 'next/font/google';
+} from "lucide-react";
+import { LoginComponent } from "./login";
+import { Sarala } from "next/font/google";
 interface Inquiry {
   id: number;
   date: string;
@@ -29,7 +30,7 @@ interface Inquiry {
   email: string;
   company: string | null;
   message: string;
-  status: 'read' | 'unread';
+  status: "read" | "unread";
   response?: string | null;
   responseDate?: string | null;
 }
@@ -43,21 +44,21 @@ const NiNiDashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [userSession, setUserSession] = useState<UserSession | null>(null);
-  const [activeNav, setActiveNav] = useState('Home');
+  const [activeNav, setActiveNav] = useState("Home");
   const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
-  const [responseText, setResponseText] = useState('');
+  const [responseText, setResponseText] = useState("");
   const [isSendingResponse, setIsSendingResponse] = useState(false);
   const [settings, setSettings] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
     notifications: true,
   });
 
   // Check authentication on mount
   useEffect(() => {
-    const storedUser = localStorage.getItem('nini_user');
+    const storedUser = localStorage.getItem("nini_user");
     if (storedUser) {
       const user = JSON.parse(storedUser);
       if (user.isLoggedIn) {
@@ -68,7 +69,7 @@ const NiNiDashboard = () => {
     }
 
     // Load inquiries from localStorage
-    const storedInquiries = localStorage.getItem('nini_inquiries');
+    const storedInquiries = localStorage.getItem("nini_inquiries");
     if (storedInquiries) {
       try {
         const parsedInquiries = JSON.parse(storedInquiries);
@@ -81,7 +82,7 @@ const NiNiDashboard = () => {
     }
 
     // Load settings from localStorage
-    const storedSettings = localStorage.getItem('nini_settings');
+    const storedSettings = localStorage.getItem("nini_settings");
     if (storedSettings) {
       try {
         setSettings(JSON.parse(storedSettings));
@@ -97,33 +98,33 @@ const NiNiDashboard = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('nini_user');
+    localStorage.removeItem("nini_user");
     setIsAuthenticated(false);
     setUserSession(null);
   };
 
   const markAsRead = (id: number) => {
     const updatedInquiries = inquiries.map((inq) =>
-      inq.id === id ? { ...inq, status: 'read' as const } : inq
+      inq.id === id ? { ...inq, status: "read" as const } : inq,
     );
     setInquiries(updatedInquiries);
-    localStorage.setItem('nini_inquiries', JSON.stringify(updatedInquiries));
+    localStorage.setItem("nini_inquiries", JSON.stringify(updatedInquiries));
   };
 
   const deleteInquiry = (id: number) => {
     const updatedInquiries = inquiries.filter((inq) => inq.id !== id);
     setInquiries(updatedInquiries);
-    localStorage.setItem('nini_inquiries', JSON.stringify(updatedInquiries));
+    localStorage.setItem("nini_inquiries", JSON.stringify(updatedInquiries));
   };
 
   const handleOpenInquiry = (inq: Inquiry) => {
     setSelectedInquiry(inq);
-    setResponseText(inq.response ?? '');
+    setResponseText(inq.response ?? "");
   };
 
   const handleCloseInquiry = () => {
     setSelectedInquiry(null);
-    setResponseText('');
+    setResponseText("");
   };
 
   const handleSendResponse = () => {
@@ -137,21 +138,21 @@ const NiNiDashboard = () => {
             ...i,
             response: text,
             responseDate: new Date().toISOString(),
-            status: 'read' as const,
+            status: "read" as const,
           }
-        : i
+        : i,
     );
     setInquiries(updated);
-    localStorage.setItem('nini_inquiries', JSON.stringify(updated));
+    localStorage.setItem("nini_inquiries", JSON.stringify(updated));
     setIsSendingResponse(false);
     setSelectedInquiry(null);
-    setResponseText('');
+    setResponseText("");
   };
 
   const handleSaveSettings = () => {
-    localStorage.setItem('nini_settings', JSON.stringify(settings));
+    localStorage.setItem("nini_settings", JSON.stringify(settings));
     setUserSession((prev) =>
-      prev ? { ...prev, email: settings.email } : prev
+      prev ? { ...prev, email: settings.email } : prev,
     );
   };
 
@@ -159,7 +160,7 @@ const NiNiDashboard = () => {
   const totalLeads = inquiries.length;
   const totalRevenue = Math.round(totalLeads * 850); // ₹850 per lead average (demo)
   const totalSales = Math.round(totalLeads * 0.42); // 42% conversion rate
-  const unreadCount = inquiries.filter((inq) => inq.status === 'unread').length;
+  const unreadCount = inquiries.filter((inq) => inq.status === "unread").length;
 
   // If not authenticated, show login
   if (!isAuthenticated) {
@@ -169,7 +170,7 @@ const NiNiDashboard = () => {
   return (
     <div
       className="flex min-h-screen font-['Quicksand'] text-gray-800"
-      style={{ backgroundColor: '#F7F5FA' }}
+      style={{ backgroundColor: "#F7F5FA" }}
     >
       {/* Sidebar */}
       <aside className="w-64 bg-white/40 backdrop-blur-lg border-r border-white/30 flex flex-col p-6 space-y-8">
@@ -185,20 +186,20 @@ const NiNiDashboard = () => {
           <NavItem
             icon={<Home size={20} />}
             label="Home"
-            active={activeNav === 'Home'}
-            onClick={() => setActiveNav('Home')}
+            active={activeNav === "Home"}
+            onClick={() => setActiveNav("Home")}
           />
           <NavItem
             icon={<MessageSquare size={20} />}
             label="Messages"
-            active={activeNav === 'Messages'}
-            onClick={() => setActiveNav('Messages')}
+            active={activeNav === "Messages"}
+            onClick={() => setActiveNav("Messages")}
           />
           <NavItem
             icon={<Settings size={20} />}
             label="Settings"
-            active={activeNav === 'Settings'}
-            onClick={() => setActiveNav('Settings')}
+            active={activeNav === "Settings"}
+            onClick={() => setActiveNav("Settings")}
           />
         </nav>
       </aside>
@@ -207,7 +208,9 @@ const NiNiDashboard = () => {
       <main className="flex-1 flex flex-col overflow-y-auto">
         {/* Header */}
         <header className="h-20 flex items-center justify-between px-10 shrink-0 border-b border-white/30 bg-white/40 backdrop-blur-sm">
-          <h1 className="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
+          <h1 className="text-2xl font-bold text-gray-800">
+            Dashboard Overview
+          </h1>
           <div className="flex items-center gap-6">
             {unreadCount > 0 && (
               <div className="flex items-center gap-2 px-4 py-2 bg-red-50 border border-red-200 rounded-xl">
@@ -239,7 +242,7 @@ const NiNiDashboard = () => {
         </header>
 
         <div className="px-10 space-y-8 pb-10">
-          {activeNav === 'Home' && (
+          {activeNav === "Home" && (
             <>
               {/* KPI Stat Cards */}
               <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
@@ -265,7 +268,7 @@ const NiNiDashboard = () => {
             </>
           )}
 
-          {activeNav === 'Messages' && (
+          {activeNav === "Messages" && (
             <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
               <div className="md:col-span-1 bg-white/60 p-4 rounded-2xl border border-white/30 shadow-sm max-h-[60vh] overflow-y-auto">
                 <h3 className="font-bold mb-4">Inquiries</h3>
@@ -278,8 +281,8 @@ const NiNiDashboard = () => {
                       key={i.id}
                       className={`p-3 rounded-lg cursor-pointer transition-colors ${
                         selectedInquiry?.id === i.id
-                          ? 'bg-white/20 ring-1 ring-white/40'
-                          : 'hover:bg-white/10'
+                          ? "bg-white/20 ring-1 ring-white/40"
+                          : "hover:bg-white/10"
                       }`}
                       onClick={() => handleOpenInquiry(i)}
                     >
@@ -297,12 +300,12 @@ const NiNiDashboard = () => {
                           <div className="mt-2">
                             <span
                               className={`px-2 py-1 rounded-full text-[11px] ${
-                                i.status === 'unread'
-                                  ? 'bg-red-100 text-red-700'
-                                  : 'bg-green-100 text-green-700'
+                                i.status === "unread"
+                                  ? "bg-red-100 text-red-700"
+                                  : "bg-green-100 text-green-700"
                               }`}
                             >
-                              {i.status === 'unread' ? 'Unread' : 'Read'}
+                              {i.status === "unread" ? "Unread" : "Read"}
                             </span>
                           </div>
                         </div>
@@ -347,12 +350,10 @@ const NiNiDashboard = () => {
                     <div className="flex gap-3">
                       <button
                         onClick={handleSendResponse}
-                        disabled={
-                          !responseText.trim() || isSendingResponse
-                        }
+                        disabled={!responseText.trim() || isSendingResponse}
                         className="bg-gradient-to-r from-[#6B46C1] to-[#38B2AC] text-white px-4 py-2 rounded-lg disabled:opacity-60 hover:shadow-lg transition-shadow"
                       >
-                        {isSendingResponse ? 'Sending...' : 'Send Response'}
+                        {isSendingResponse ? "Sending..." : "Send Response"}
                       </button>
                       <button
                         onClick={() => {
@@ -384,12 +385,12 @@ const NiNiDashboard = () => {
                     </div>
                     {selectedInquiry.response && (
                       <div className="text-sm text-green-700 font-semibold">
-                        Response sent on{' '}
+                        Response sent on{" "}
                         {selectedInquiry.responseDate
                           ? new Date(
-                              selectedInquiry.responseDate
+                              selectedInquiry.responseDate,
                             ).toLocaleString()
-                          : ''}
+                          : ""}
                       </div>
                     )}
                   </div>
@@ -398,18 +399,18 @@ const NiNiDashboard = () => {
             </section>
           )}
 
-          {activeNav === 'Settings' && (
+          {activeNav === "Settings" && (
             <section className="bg-white/60 p-6 rounded-2xl border border-white/30 shadow-sm pt-6">
               <h3 className="font-bold mb-4">Settings</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="col-span-1 bg-gradient-to-br from-white/60 to-white/40 p-6 rounded-2xl flex flex-col items-center text-center border border-white/30">
                   <div className="w-28 h-28 rounded-full bg-gradient-to-br from-[#6B46C1] to-[#38B2AC] flex items-center justify-center text-white text-2xl font-bold mb-4">
-                    {(settings.name || userSession?.email || 'A')
+                    {(settings.name || userSession?.email || "A")
                       .charAt(0)
                       .toUpperCase()}
                   </div>
                   <div className="font-semibold">
-                    {settings.name || 'Admin User'}
+                    {settings.name || "Admin User"}
                   </div>
                   <div className="text-xs text-gray-500 break-all">
                     {settings.email || userSession?.email}
@@ -417,7 +418,7 @@ const NiNiDashboard = () => {
                   <div className="mt-4 w-full">
                     <button
                       onClick={() => {
-                        localStorage.removeItem('nini_user');
+                        localStorage.removeItem("nini_user");
                         handleLogout();
                       }}
                       className="w-full bg-red-100 text-red-700 py-2 rounded-lg hover:bg-red-200 transition-colors"
@@ -431,17 +432,41 @@ const NiNiDashboard = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm text-gray-600">Full Name</label>
-                      <input
+                      {/* <input
                         value={settings.name}
                         onChange={(e) =>
                           setSettings((s) => ({ ...s, name: e.target.value }))
                         }
                         className="w-full p-3 border rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
-                      />
+                      /> */}
+                      <input
+  type="text"
+  placeholder="Name"
+  pattern="[A-Za-z ]*"
+  value={settings.name}
+  onChange={(e) =>
+    setSettings((s) => ({
+      ...s,
+      name: e.target.value.replace(/[^A-Za-z ]/g, "") // removes non-letters
+    }))
+  }
+  className="w-full p-3 border rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
+/>
+
                     </div>
                     <div>
                       <label className="text-sm text-gray-600">Email</label>
+                      {/* <input
+                        value={settings.email}
+                        onChange={(e) =>
+                          setSettings((s) => ({ ...s, email: e.target.value }))
+                        }
+                        className="w-full p-3 border rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
+                      /> */}
+
                       <input
+                        type="email"
+                        placeholder="Email"
                         value={settings.email}
                         onChange={(e) =>
                           setSettings((s) => ({ ...s, email: e.target.value }))
@@ -449,7 +474,8 @@ const NiNiDashboard = () => {
                         className="w-full p-3 border rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                       />
                     </div>
-                    <div>
+
+                    {/* <div>
                       <label className="text-sm text-gray-600">Company</label>
                       <input
                         value={settings.company}
@@ -461,13 +487,27 @@ const NiNiDashboard = () => {
                         }
                         className="w-full p-3 border rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                       />
-                    </div>
+                    </div> */}
                     <div>
                       <label className="text-sm text-gray-600">Phone</label>
-                      <input
+                      {/* <input
                         value={settings.phone}
                         onChange={(e) =>
                           setSettings((s) => ({ ...s, phone: e.target.value }))
+                        }
+                        className="w-full p-3 border rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
+                      /> */}
+                      <input
+                        type="tel"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        placeholder="Phone Number"
+                        value={settings.phone}
+                        onChange={(e) =>
+                          setSettings((s) => ({
+                            ...s,
+                            phone: e.target.value.replace(/\D/g, ""), // removes non-numeric characters
+                          }))
                         }
                         className="w-full p-3 border rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                       />
@@ -520,7 +560,7 @@ const NiNiDashboard = () => {
                     </button>
                     <button
                       onClick={() => {
-                        const saved = localStorage.getItem('nini_settings');
+                        const saved = localStorage.getItem("nini_settings");
                         if (saved) setSettings(JSON.parse(saved));
                       }}
                       className="px-4 py-2 rounded-lg bg-white/50 hover:bg-white/70 transition-colors"
@@ -574,8 +614,8 @@ const NavItem = ({ icon, label, active, onClick }: NavItemProps) => (
     onKeyDown={() => {}}
     className={`flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer transition-all ${
       active
-        ? 'bg-gradient-to-r from-[#6B46C1] to-[#7c5cd1] text-white shadow-lg'
-        : 'text-gray-500 hover:bg-white/10 hover:text-[#6B46C1]'
+        ? "bg-gradient-to-r from-[#6B46C1] to-[#7c5cd1] text-white shadow-lg"
+        : "text-gray-500 hover:bg-white/10 hover:text-[#6B46C1]"
     }`}
   >
     {icon}
